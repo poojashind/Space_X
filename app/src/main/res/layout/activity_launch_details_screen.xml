@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/mission_description"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/launch_date_tv" />
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textSize="14dp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/missionDescriptionTextView" />
 
@@ -151,28 +151,6 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-
-
-
-        <TextView
-            android:id="@+id/mission_patch_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Mission Patch"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/launch_datails_layout" />
-
-        <ImageView
-            android:id="@+id/mission_patch_detals_iv"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@id/mission_patch_tv"
-            app:layout_constraintTop_toBottomOf="@+id/launch_datails_layout" />
-
         <TextView
             android:id="@+id/link_tv"
             android:layout_width="wrap_content"
@@ -181,7 +159,7 @@
             android:textSize="18sp"
             android:text="@string/important_links"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mission_patch_detals_iv" />
+            app:layout_constraintTop_toBottomOf="@+id/launch_datails_layout" />
 
         <TextView
             android:id="@+id/article_link_tv"
@@ -215,6 +193,26 @@
             android:linksClickable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/presskit_link_tv" />
+
+        <TextView
+            android:id="@+id/mission_patch_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/mission_patch"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wikipedia_link_tv" />
+
+        <ImageView
+            android:id="@+id/mission_patch_detals_iv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@id/mission_patch_tv"
+            app:layout_constraintTop_toBottomOf="@+id/wikipedia_link_tv" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

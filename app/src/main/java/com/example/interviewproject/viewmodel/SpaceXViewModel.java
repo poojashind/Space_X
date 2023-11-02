@@ -17,8 +17,8 @@ public class SpaceXViewModel extends ViewModel {
         repository = new SpaceRepository(application);
     }
 
-    public void getSpaceXData(boolean isFromPullToRefresh) {
-        repository.getSpaceXDataAndStoreToDB(isFromPullToRefresh);
+    public void getSpaceXData() {
+        repository.getSpaceXDataAndStoreToDB();
     }
 
     public LiveData<List<SpaceXLaunchResponse>> getSpaceXMutableLiveData() {
@@ -27,6 +27,10 @@ public class SpaceXViewModel extends ViewModel {
 
     public void updateBookMarkField(boolean isBookMark, int id) {
         repository.updateBookMarkField(isBookMark, id);
+    }
+
+    public LiveData<Integer> getDataCount() {
+        return repository.checkDbCount();
     }
 }
 

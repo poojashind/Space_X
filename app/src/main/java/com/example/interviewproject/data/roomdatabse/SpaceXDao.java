@@ -22,6 +22,6 @@ public interface SpaceXDao {
     @Query("UPDATE space_launch_table SET is_bookmarked = :isBookMarked WHERE flight_number =:id")
     void update(boolean isBookMarked, int id);
 
-    @Query("SELECT COUNT(*) FROM space_launch_table")
-    int getDataCount();
+    @Query("SELECT COUNT(flight_number) FROM space_launch_table")
+    LiveData<Integer> getDataCount();
 }

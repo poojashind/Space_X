@@ -76,24 +76,34 @@ public class LaunchDetailsActivity extends AppCompatActivity {
     }
 
     private void setData() {
+        String payloadId = "", payloadType = "", manufacturer = "", payloadMassKgs = "", orbit = "", launchStatus;
         Picasso.get()
                 .load(spaceXLaunchResponse.getLinks().getMissionPatchSmall())
                 .into(missionPatchImageView);
         missionNameTextView.setText(spaceXLaunchResponse.getMissionName());
-        launchDateTimeTextView.setText(DateTimeConverter.getFormattedDateTime(spaceXLaunchResponse.getLaunchDateLocal())); // Format the date and time
+        launchDateTimeTextView.setText(DateTimeConverter.getFormattedDateTime(spaceXLaunchResponse.getLaunchDateLocal()));
         missionDescriptionDetailsTextView.setText(spaceXLaunchResponse.getDetails());
-        rocketNameTextView.setText(String.format("Rocket Name:%s", spaceXLaunchResponse.getRocket().getRocketName()));
-        rocketTypeTextView.setText(String.format("Rocket Type:%s", spaceXLaunchResponse.getRocket().getRocketType()));
-        for (int i = 0; i < spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().size(); i++) {
+        if (spaceXLaunchResponse.getRocket().getRocketName() != null)
+            rocketNameTextView.setText(String.format("Rocket Name:%s", spaceXLaunchResponse.getRocket().getRocketName()));
+        else
+            rocketNameTextView.setVisibility(View.GONE);
+        if (spaceXLaunchResponse.getRocket().getRocketType() != null)
+            rocketTypeTextView.setText(String.format("Rocket Type:%s", spaceXLaunchResponse.getRocket().getRocketType()));
+        else
+            rocketNameTextView.setVisibility(View.GONE);
 
-            String payloadId = "Payload Id: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadId();
-            String payloadType = "Payload Type: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadType();
-            String manufacturer = "Manufacturer: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getManufacturer();
-            String payloadMassKgs = "Payload Mass in Kgs: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadMassKg().toString();
-            String orbit = "Orbit: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getOrbit();
-            rocketDescriptionTextView.setText(String.format("Rocket Description:%s\n%s\n%s\n%s\n%s", payloadId, payloadType, manufacturer, payloadMassKgs, orbit));
-        }
-        String launchStatus;
+        if (spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadId() != null)
+            payloadId = "Payload Id: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadId();
+        if (spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadType() != null)
+            payloadType = "Payload Type: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadType();
+        if (spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getManufacturer() != null)
+            manufacturer = "Manufacturer: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getManufacturer();
+        if (spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadMassKg() != null)
+            payloadMassKgs = "Payload Mass in Kgs: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getPayloadMassKg().toString();
+        if (spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getOrbit() != null)
+            orbit = "Orbit: " + spaceXLaunchResponse.getRocket().getSecondStage().getPayloads().get(0).getOrbit();
+        rocketDescriptionTextView.setText(String.format("Rocket Description: %s\n%s\n%s\n%s\n%s", payloadId, payloadType, manufacturer, payloadMassKgs, orbit));
+
         if (spaceXLaunchResponse.getUpcoming()) {
             launchStatus = "Upcoming";
         } else if (spaceXLaunchResponse.getLaunchSuccess()) {
@@ -103,8 +113,8 @@ public class LaunchDetailsActivity extends AppCompatActivity {
         }
         launchStatusTextView.setText(String.format(launchStatus));
 
-        if(spaceXLaunchResponse.getLaunchSite().getSiteNameLong() != null)
-        launchSiteTextView.setText(String.format("Site Name: %s", spaceXLaunchResponse.getLaunchSite().getSiteNameLong()));
+        if (spaceXLaunchResponse.getLaunchSite().getSiteNameLong() != null)
+            launchSiteTextView.setText(String.format("Site Name: %s", spaceXLaunchResponse.getLaunchSite().getSiteNameLong()));
         else
             launchSiteTextView.setVisibility(View.GONE);
 
@@ -117,7 +127,7 @@ public class LaunchDetailsActivity extends AppCompatActivity {
             articleLinkTextView.setVisibility(View.GONE);
 
         if (spaceXLaunchResponse.getLinks().getPresskit() != null)
-            presskitLinkTextView.setText(String.format("Presskit Link:%s", spaceXLaunchResponse.getLinks().getPresskit()));
+            presskitLinkTextView.setText(String.format("Press Kit Link:%s", spaceXLaunchResponse.getLinks().getPresskit()));
         else
             presskitLinkTextView.setVisibility(View.GONE);
         if (spaceXLaunchResponse.getLinks().getWikipedia() != null)

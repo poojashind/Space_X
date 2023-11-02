@@ -3,6 +3,7 @@ package com.example.interviewproject.Repository;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -23,38 +24,30 @@ import retrofit2.Response;
 public class SpaceRepository {
 
     private final SpaceXDao spaceXDao;
-    private LiveData<List<SpaceXLaunchResponse>> allSpaceXLaunches = new MutableLiveData<>();
 
     public SpaceRepository(Application application) {
         RoomDataBaseBuilder database = RoomDataBaseBuilder.getInstance(application);
         spaceXDao = database.SpaceXDao();
     }
 
-    public void getSpaceXDataAndStoreToDB(boolean isFromPullToRefresh) {
-        if(isFromPullToRefresh || checkDbCount() <= 0) {
-            Log.d("TAG", "getSpaceXDataAndStoreToDB: " + "if part");
-
+    public void getSpaceXDataAndStoreToDB() {
             APIInterface apiInterface = RetrofitBuilder.getInstance().create(APIInterface.class);
             MutableLiveData<List<SpaceXLaunchResponse>> spaceResponse = new MutableLiveData<>();
             apiInterface.getSpaceLaunchData().enqueue(new Callback<ArrayList<SpaceXLaunchResponse>>() {
                 @Override
-                public void onResponse(Call<ArrayList<SpaceXLaunchResponse>> call, Response<ArrayList<SpaceXLaunchResponse>> response) {
+                public void onResponse(@NonNull Call<ArrayList<SpaceXLaunchResponse>> call, @NonNull Response<ArrayList<SpaceXLaunchResponse>> response) {
                     RoomDataBaseBuilder.databaseWriteExecutor.execute(() -> spaceXDao.insert(response.body()));
                 }
 
                 @Override
-                public void onFailure(Call<ArrayList<SpaceXLaunchResponse>> call, Throwable t) {
+                public void onFailure(@NonNull Call<ArrayList<SpaceXLaunchResponse>> call, @NonNull Throwable t) {
                     spaceResponse.postValue(null);
                 }
             });
-        }
     }
 
-    private int checkDbCount() {
-        AtomicInteger count = new AtomicInteger();
-        RoomDataBaseBuilder.databaseWriteExecutor.execute(() -> count.set(spaceXDao.getDataCount()));
-        Log.d(SpaceRepository.class.getName(), count.get() + "");
-        return count.get();
+    public LiveData<Integer> checkDbCount() {
+        return spaceXDao.getDataCount();
     }
     public LiveData<List<SpaceXLaunchResponse>> getAllSpaceXData() {
         return spaceXDao.getAllSpacexLaunches();

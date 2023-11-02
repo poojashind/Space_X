@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements SpaceCallback {
         initializeViews();
         manageSwipeRefreshLayout();
         initializeViewModel();
-        observeData(false);
+        loadData();
     }
 
     private void initializeViewModel() {
@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements SpaceCallback {
     private void manageSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             swipeRefreshLayout.setRefreshing(false);
-            observeData(true);
+            spaceXViewModel.getSpaceXData();
+            observeData();
         });
     }
     private void initializeViews() {
@@ -53,13 +54,23 @@ public class MainActivity extends AppCompatActivity implements SpaceCallback {
         loaderPB = findViewById(R.id.loader_pb);
     }
 
-    private void observeData(boolean isFromPullToRefresh) {
+    private void loadData() {
         loaderPB.setVisibility(View.VISIBLE);
-        spaceXViewModel.getSpaceXData(isFromPullToRefresh);
+        spaceXViewModel.getDataCount().observe(this, integer -> {
+            if(integer > 0) {
+                observeData();
+            } else {
+                spaceXViewModel.getSpaceXData();
+                observeData();
+            }
+        });
+    }
+
+    private void observeData() {
         spaceXViewModel.getSpaceXMutableLiveData().observe(this, spaceXLaunchResponses -> {
-                loaderPB.setVisibility(View.GONE);
-                spaceXListAatapter = new SpaceXListAatapter(this, spaceXLaunchResponses);
-                spaceListRv.setAdapter(spaceXListAatapter);
+            loaderPB.setVisibility(View.GONE);
+            spaceXListAatapter = new SpaceXListAatapter(this, spaceXLaunchResponses);
+            spaceListRv.setAdapter(spaceXListAatapter);
         });
     }
 
