@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">InterviewProject</string>
+    <string name="launch_date">Launch Date</string>
+    <string name="rocket_name">Rocket Name</string>
+    <string name="launch_status">Launch Status</string>
+    <string name="launch_date_and_time">Launch Date and Time</string>
+    <string name="mission_description">Mission Description</string>
+    <string name="rocket_details">Rocket Details</string>
+    <string name="launch_details">Launch Details</string>
+    <string name="important_links">Important Links</string>
 </resources>
