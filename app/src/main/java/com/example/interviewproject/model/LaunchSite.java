@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LaunchSite {
-
     @SerializedName("site_id")
     @Expose
     private String siteId;

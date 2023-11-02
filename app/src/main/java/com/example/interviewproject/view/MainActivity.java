@@ -1,41 +1,38 @@
-package com.example.interviewproject.view.adapter;
+package com.example.interviewproject.view;
 
-import androidx.annotation.NonNull;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.interviewproject.R;
 import com.example.interviewproject.model.SpaceXLaunchResponse;
 import com.example.interviewproject.view.adapter.SpaceXListAatapter;
 import com.example.interviewproject.viewmodel.SpaceXViewModel;
+import com.google.gson.Gson;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SpaceCallback {
 
     private SpaceXViewModel spaceXViewModel;
     private RecyclerView spaceListRv;
     private SpaceXListAatapter spaceXListAatapter;
     private ProgressBar loaderPB;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeViews();
+        manageSwipeRefreshLayout();
         initializeViewModel();
-        observeData();
+        observeData(false);
     }
 
     private void initializeViewModel() {
@@ -43,21 +40,39 @@ public class MainActivity extends AppCompatActivity {
         spaceXViewModel.init(this.getApplication());
     }
 
+    private void manageSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(false);
+            observeData(true);
+        });
+    }
     private void initializeViews() {
         spaceListRv = findViewById(R.id.space_list_rv);
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         spaceListRv.setLayoutManager(new LinearLayoutManager(this));
         loaderPB = findViewById(R.id.loader_pb);
     }
 
-    private void observeData() {
+    private void observeData(boolean isFromPullToRefresh) {
         loaderPB.setVisibility(View.VISIBLE);
-        spaceXViewModel.getSpaceXData();
+        spaceXViewModel.getSpaceXData(isFromPullToRefresh);
         spaceXViewModel.getSpaceXMutableLiveData().observe(this, spaceXLaunchResponses -> {
-            if(!spaceXLaunchResponses.isEmpty()) {
                 loaderPB.setVisibility(View.GONE);
                 spaceXListAatapter = new SpaceXListAatapter(this, spaceXLaunchResponses);
                 spaceListRv.setAdapter(spaceXListAatapter);
-            }
         });
+    }
+
+    @Override
+    public void update(boolean isBookMark, int id) {
+        spaceXViewModel.updateBookMarkField(isBookMark, id);
+    }
+
+    @Override
+    public void loadDetailsPage(SpaceXLaunchResponse response) {
+        Intent intent = new Intent(this, LaunchDetailsActivity.class);
+        Gson gson = new Gson();
+        intent.putExtra("SpaceXLaunchResponses", gson.toJson(response));
+        startActivity(intent);
     }
 }

@@ -1,93 +1,124 @@
 package com.example.interviewproject.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
 
+@Entity(tableName = "space_launch_table")
 public class SpaceXLaunchResponse {
+    @PrimaryKey
+    @ColumnInfo(name = "flight_number")
     @SerializedName("flight_number")
     @Expose
-    private Integer flightNumber;
+    private int flightNumber;
+    @ColumnInfo(name = "mission_name")
+
     @SerializedName("mission_name")
     @Expose
     private String missionName;
-    @SerializedName("mission_id")
-    @Expose
-    private List<Object> missionId;
+    @ColumnInfo(name = "upcoming")
+
     @SerializedName("upcoming")
     @Expose
-    private Boolean upcoming;
+    private boolean upcoming;
+    @ColumnInfo(name = "launch_year")
+
     @SerializedName("launch_year")
     @Expose
     private String launchYear;
+    @ColumnInfo(name = "launch_date_unix")
+
     @SerializedName("launch_date_unix")
     @Expose
-    private Integer launchDateUnix;
+    private int launchDateUnix;
+    @ColumnInfo(name = "launch_date_utc")
+
     @SerializedName("launch_date_utc")
     @Expose
     private String launchDateUtc;
+    @ColumnInfo(name = "launch_date_local")
+
     @SerializedName("launch_date_local")
     @Expose
     private String launchDateLocal;
+    @ColumnInfo(name = "is_tentative")
+
     @SerializedName("is_tentative")
     @Expose
-    private Boolean isTentative;
+    private boolean isTentative;
+    @ColumnInfo(name = "tentative_max_precision")
+
     @SerializedName("tentative_max_precision")
     @Expose
     private String tentativeMaxPrecision;
+    @ColumnInfo(name = "tbd")
+
     @SerializedName("tbd")
     @Expose
-    private Boolean tbd;
+    private boolean tbd;
+    @ColumnInfo(name = "launch_window")
+
     @SerializedName("launch_window")
     @Expose
-    private Integer launchWindow;
-   @SerializedName("rocket")
+    private int launchWindow;
+    @ColumnInfo(name = "rocket")
+    @SerializedName("rocket")
     @Expose
     private Rocket rocket;
-   @SerializedName("ships")
-    @Expose
-    private List<Object> ships;
-/*    @SerializedName("telemetry")
-    @Expose
-    private Telemetry telemetry;
+
+    @ColumnInfo(name = "launch_site")
     @SerializedName("launch_site")
     @Expose
     private LaunchSite launchSite;
-    */@SerializedName("launch_success")
+
+    @ColumnInfo(name = "launch_success")
+    @SerializedName("launch_success")
     @Expose
-    private Boolean launchSuccess;
-  /*  @SerializedName("launch_failure_details")
-    @Expose
-    private LaunchFailureDetails launchFailureDetails;
-  */ /* @SerializedName("links")
+    private boolean launchSuccess;
+    @ColumnInfo(name = "links")
+    @SerializedName("links")
     @Expose
     private Links links;
-  */
-  @SerializedName("links")
-  @Expose
-  private Links links;
+
+    @SerializedName("launch_failure_details")
+    @Expose
+    private LaunchFailureDetails launchFailureDetails;
+    @ColumnInfo(name = "details")
     @SerializedName("details")
     @Expose
     private String details;
+    @ColumnInfo(name = "static_fire_date_utc")
     @SerializedName("static_fire_date_utc")
     @Expose
     private String staticFireDateUtc;
+    @ColumnInfo(name = "static_fire_date_unix")
     @SerializedName("static_fire_date_unix")
     @Expose
-    private Integer staticFireDateUnix;
+    private int staticFireDateUnix;
+    @ColumnInfo(name = "timeline")
     @SerializedName("timeline")
     @Expose
     private Timeline timeline;
-    @SerializedName("crew")
-    @Expose
-    private Object crew;
 
-    public Integer getFlightNumber() {
+    @ColumnInfo(name = "is_bookmarked")
+    private boolean isBookMarked;
+
+    public boolean isBookMarked() {
+        return isBookMarked;
+    }
+
+    public void setBookMarked(boolean bookMarked) {
+        isBookMarked = bookMarked;
+    }
+    public int getFlightNumber() {
         return flightNumber;
     }
 
-    public void setFlightNumber(Integer flightNumber) {
+    public void setFlightNumber(int flightNumber) {
         this.flightNumber = flightNumber;
     }
 
@@ -99,19 +130,12 @@ public class SpaceXLaunchResponse {
         this.missionName = missionName;
     }
 
-    public List<Object> getMissionId() {
-        return missionId;
-    }
 
-    public void setMissionId(List<Object> missionId) {
-        this.missionId = missionId;
-    }
-
-    public Boolean getUpcoming() {
+    public boolean getUpcoming() {
         return upcoming;
     }
 
-    public void setUpcoming(Boolean upcoming) {
+    public void setUpcoming(boolean upcoming) {
         this.upcoming = upcoming;
     }
 
@@ -123,11 +147,11 @@ public class SpaceXLaunchResponse {
         this.launchYear = launchYear;
     }
 
-    public Integer getLaunchDateUnix() {
+    public int getLaunchDateUnix() {
         return launchDateUnix;
     }
 
-    public void setLaunchDateUnix(Integer launchDateUnix) {
+    public void setLaunchDateUnix(int launchDateUnix) {
         this.launchDateUnix = launchDateUnix;
     }
 
@@ -147,11 +171,11 @@ public class SpaceXLaunchResponse {
         this.launchDateLocal = launchDateLocal;
     }
 
-    public Boolean getIsTentative() {
+    public boolean getIsTentative() {
         return isTentative;
     }
 
-    public void setIsTentative(Boolean isTentative) {
+    public void setIsTentative(boolean isTentative) {
         this.isTentative = isTentative;
     }
 
@@ -163,19 +187,19 @@ public class SpaceXLaunchResponse {
         this.tentativeMaxPrecision = tentativeMaxPrecision;
     }
 
-    public Boolean getTbd() {
+    public boolean getTbd() {
         return tbd;
     }
 
-    public void setTbd(Boolean tbd) {
+    public void setTbd(boolean tbd) {
         this.tbd = tbd;
     }
 
-    public Integer getLaunchWindow() {
+    public int getLaunchWindow() {
         return launchWindow;
     }
 
-    public void setLaunchWindow(Integer launchWindow) {
+    public void setLaunchWindow(int launchWindow) {
         this.launchWindow = launchWindow;
     }
 
@@ -186,21 +210,7 @@ public class SpaceXLaunchResponse {
     public void setRocket(Rocket rocket) {
         this.rocket = rocket;
     }
-    public List<Object> getShips() {
-        return ships;
-    }
 
-    public void setShips(List<Object> ships) {
-        this.ships = ships;
-    }
-
-   /* public Telemetry getTelemetry() {
-        return telemetry;
-    }
-
-    public void setTelemetry(Telemetry telemetry) {
-        this.telemetry = telemetry;
-    }
 
     public LaunchSite getLaunchSite() {
         return launchSite;
@@ -209,26 +219,14 @@ public class SpaceXLaunchResponse {
     public void setLaunchSite(LaunchSite launchSite) {
         this.launchSite = launchSite;
     }
-*/
-    public Boolean getLaunchSuccess() {
+
+    public boolean getLaunchSuccess() {
         return launchSuccess;
     }
 
-    public void setLaunchSuccess(Boolean launchSuccess) {
+    public void setLaunchSuccess(boolean launchSuccess) {
         this.launchSuccess = launchSuccess;
     }
-
-/*
-    public LaunchFailureDetails getLaunchFailureDetails() {
-        return launchFailureDetails;
-    }
-
-    public void setLaunchFailureDetails(LaunchFailureDetails launchFailureDetails) {
-        this.launchFailureDetails = launchFailureDetails;
-    }
-
-*/
-
 
     public Links getLinks() {
         return links;
@@ -237,6 +235,7 @@ public class SpaceXLaunchResponse {
     public void setLinks(Links links) {
         this.links = links;
     }
+
     public String getDetails() {
         return details;
     }
@@ -253,11 +252,11 @@ public class SpaceXLaunchResponse {
         this.staticFireDateUtc = staticFireDateUtc;
     }
 
-    public Integer getStaticFireDateUnix() {
+    public int getStaticFireDateUnix() {
         return staticFireDateUnix;
     }
 
-    public void setStaticFireDateUnix(Integer staticFireDateUnix) {
+    public void setStaticFireDateUnix(int staticFireDateUnix) {
         this.staticFireDateUnix = staticFireDateUnix;
     }
 
@@ -269,13 +268,13 @@ public class SpaceXLaunchResponse {
         this.timeline = timeline;
     }
 
-    public Object getCrew() {
-        return crew;
+
+
+    public LaunchFailureDetails getLaunchFailureDetails() {
+        return launchFailureDetails;
     }
 
-    public void setCrew(Object crew) {
-        this.crew = crew;
+    public void setLaunchFailureDetails(LaunchFailureDetails launchFailureDetails) {
+        this.launchFailureDetails = launchFailureDetails;
     }
-
-
 }

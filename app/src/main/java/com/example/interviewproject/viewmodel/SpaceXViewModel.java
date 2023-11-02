@@ -1,8 +1,8 @@
 package com.example.interviewproject.viewmodel;
 
-import android.util.Log;
+import android.app.Application;
 
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.interviewproject.Repository.SpaceRepository;
@@ -13,17 +13,20 @@ import java.util.List;
 public class SpaceXViewModel extends ViewModel {
 
     private SpaceRepository repository;
-    private MutableLiveData<List<SpaceXLaunchResponse>> spaceXMutableLiveData = new MutableLiveData<>();
-    public SpaceXViewModel() {
-        repository = new SpaceRepository();
+    public void init(Application application) {
+        repository = new SpaceRepository(application);
     }
 
-    public void getSpaceXData() {
-        spaceXMutableLiveData = repository.getSpaceXData();
+    public void getSpaceXData(boolean isFromPullToRefresh) {
+        repository.getSpaceXDataAndStoreToDB(isFromPullToRefresh);
     }
 
-    public MutableLiveData<List<SpaceXLaunchResponse>> getSpaceXMutableLiveData() {
-        return spaceXMutableLiveData;
+    public LiveData<List<SpaceXLaunchResponse>> getSpaceXMutableLiveData() {
+        return repository.getAllSpaceXData();
+    }
+
+    public void updateBookMarkField(boolean isBookMark, int id) {
+        repository.updateBookMarkField(isBookMark, id);
     }
 }
 

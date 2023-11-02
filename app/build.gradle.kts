@@ -42,7 +42,7 @@ dependencies {
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.google.code.gson:gson:2.8.9")
+    implementation("com.google.code.gson:gson:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
 
@@ -54,5 +54,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("com.squareup.picasso:picasso:2.8")
 
+    //Room
+    implementation("androidx.room:room-runtime:2.6.0")
+    annotationProcessor("androidx.room:room-compiler:2.6.0")
+
+    //Cardview
+    implementation("androidx.cardview:cardview:1.0.0")
+
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 }
